@@ -1,8 +1,14 @@
 #! /bin/bash
 
 link() {
+    if [ -f "~/.vimrc" ]
+    then
+        var date = `date "+%Y-%m-%d-%H-%M-%S"`
+        mv ~/.vimrc ~/.vimrc-$date
+    fi
     ln -s ~/.vim/vimrc ~/.vimrc &< /dev/null
 
+    echo $?
     if [ ! $? -eq 0 ]
     then
         echo "Error: link vimrc failed"
@@ -31,7 +37,6 @@ config_vundle() {
 link
 config_vundle
 
-echo $?
 if [ $? -eq 0 ]; then 
     echo "Config Vim OK. Enjoy it :-) "
 fi
