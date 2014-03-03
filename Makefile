@@ -2,5 +2,4 @@
 init: vim
 
 vim:
-	cp -a vim ~/.vim	
-	~/.vim/install.sh
+	`pwd`/vim-setup.sh

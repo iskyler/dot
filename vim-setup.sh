@@ -1,0 +1,52 @@
+#! /bin/bash
+
+echo $'#############################
+###    Vim Config Start   ###
+#############################'
+link() {
+    CUR_TIME=`date "+%Y-%m-%d-%H-%M-%S"`
+    if [ -d ~/.vim ]
+    then 
+        mv ~/.vim ~/.vim-${CUR_TIME}     
+        echo "move ~/.vim to ~/.vim-${CUR_TIME}"
+    fi
+    cp -a ./vim ~/.vim
+
+    if [ -f ~/.vimrc ]
+    then
+        mv ~/.vimrc ~/.vimrc-${CUR_TIME}
+        echo "move ~/.vimrc to ~/.vimrc-${CUR_TIME}"
+    fi
+    ln -s ~/.vim/vimrc ~/.vimrc &< /dev/null
+
+    if [ ! $? -eq 0 ]
+    then
+        echo "Error: link vimrc failed"
+        exit -1
+    fi
+}
+
+config_vundle() {
+    if [ ! -d ~/.vim/bundle/vundle/.git ]
+    then
+        #mkdir -p ~/.vim/bundle
+        git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle &< /dev/null
+        exit 0 
+        if [ ! $? -eq 0 ]
+        then
+            echo "Error: Install vundle failed"
+            exit -1
+        fi
+    fi
+
+    echo "Vundle install ok"
+    vim -c 'execute "BundleInstall" | q | q' 
+}
+
+link
+config_vundle
+
+if [ $? -eq 0 ]; then 
+    echo "Config Vim OK. Enjoy it :-) "
+fi
+
