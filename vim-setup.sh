@@ -17,7 +17,7 @@ link() {
         mv ~/.vimrc ~/.vimrc-${CUR_TIME}
         echo "move ~/.vimrc to ~/.vimrc-${CUR_TIME}"
     fi
-    ln -s ~/.vim/vimrc ~/.vimrc &< /dev/null
+    ln -s ~/.vim/vimrc ~/.vimrc &> /dev/null
 
     if [ ! $? -eq 0 ]
     then
@@ -29,9 +29,8 @@ link() {
 config_vundle() {
     if [ ! -d ~/.vim/bundle/vundle/.git ]
     then
-        #mkdir -p ~/.vim/bundle
-        git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle &< /dev/null
-        exit 0 
+        mkdir -p ~/.vim/bundle
+        git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle &> /dev/null
         if [ ! $? -eq 0 ]
         then
             echo "Error: Install vundle failed"
@@ -40,7 +39,9 @@ config_vundle() {
     fi
 
     echo "Vundle install ok"
-    vim -c 'execute "BundleInstall" | q | q' 
+    hash vim 2>/dev/null || { \
+        echo "vim command not found"; exit -1; }
+    vim +BundleInstall +qall
 }
 
 link
