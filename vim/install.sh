@@ -6,6 +6,7 @@ link() {
     if [ ! $? -eq 0 ]
     then
         echo "Error: link vimrc failed"
+        exit -1
     fi
 }
 
@@ -19,15 +20,18 @@ config_vundle() {
             vim +BundleInstall +qall
         else
             echo "Error: vim command not found"
+            exit -1
         fi
     else
         echo "Error: Install vundle failed"
+        exit -1
     fi
 }
 
 link
 config_vundle
 
+echo $?
 if [ $? -eq 0 ]; then 
     echo "Config Vim OK. Enjoy it :-) "
 fi
