@@ -3,12 +3,12 @@
 link() {
     if [ -f "~/.vimrc" ]
     then
+        echo "yeap"
         var date = `date "+%Y-%m-%d-%H-%M-%S"`
         mv ~/.vimrc ~/.vimrc-$date
     fi
     ln -s ~/.vim/vimrc ~/.vimrc &< /dev/null
 
-    echo $?
     if [ ! $? -eq 0 ]
     then
         echo "Error: link vimrc failed"
