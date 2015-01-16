@@ -1,0 +1,33 @@
+#
+# /etc/hosts: static lookup table for host names
+#
+
+#<ip-address>	<hostname.domain.org>	<hostname>
+127.0.0.1	localhost.localdomain	localhost
+::1		localhost.localdomain	localhost
+# 74.125.237.1       dl-ssl.google.com
+203.208.46.146 www.google.com
+203.208.46.146 dl-ssl.google.com
+203.208.46.146 dl.google.com
+74.125.113.121 developer.android.com
+
+#Firefox AMO
+117.18.232.191 addons.cdn.mozilla.net
+117.18.232.191 mozorg.cdn.mozilla.net
+117.18.232.191 developer.cdn.mozilla.net
+117.18.232.191 support.cdn.mozilla.net
+117.18.232.191 marketplace.cdn.mozilla.net
+117.18.237.191 getpersonas.cdn.mozilla.net
+117.18.237.191 code.cdn.mozilla.net
+117.18.232.191 air.cdn.mozilla.net
+117.18.232.191 videos.cdn.mozilla.net
+117.18.232.191 glow.cdn.mozilla.net
+117.18.232.191 download-installer.cdn.mozilla.net
+117.18.232.191 download.cdn.mozilla.net
+117.18.232.191 fhr.cdn.mozilla.net
+117.18.232.191 activations.cdn.mozilla.net
+117.18.232.191 cdn.mozilla.net
+117.18.232.191 snippets.cdn.mozilla.net
+117.18.232.191 telemetry-experiment.cdn.mozilla.net
+117.18.237.29 ocsp.digicert.com
+# End of file
