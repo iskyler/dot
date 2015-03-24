@@ -27,10 +27,10 @@ link() {
 }
 
 config_vundle() {
-    if [ ! -d ~/.vim/bundle/vundle/.git ]
+    if [ ! -d ~/.vim/bundle ]
     then
         mkdir -p ~/.vim/bundle
-        git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle &> /dev/null
+        git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
         if [ ! $? -eq 0 ]
         then
             echo "Error: Install vundle failed"
