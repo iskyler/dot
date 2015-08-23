@@ -2,11 +2,10 @@
 "                 General                    "
 "--------------------------------------------"
 set nocompatible
+filetype plugin on       		" Enable filetype plugin
 filetype off
 colorscheme desert
 
-filetype plugin on       		" Enable filetype plugin
-filetype indent on
 syntax on               		" Enable syntax hl
 set autoread                	" Auto read when a file is changed from the outside
 set noerrorbells                " No sound on errors
@@ -22,12 +21,20 @@ set smartcase           		" Case matches depend on what you type
 set incsearch           		" Make search act like search in modern browsers
 set magic               		" Use regular expressions for searching
 
+" [Indent configuration]
+let g:html_indent_script1 = "inc"   
+let g:html_indent_style1 = "inc"  
+let g:html_indent_inctags = "html,body,head,tbody"  
+" set autoindent
+" set cindent
+" set smartindent
+
 " [Tab configuration]
 set noswapfile
-set shiftwidth=4        		" Number of space for indenting
-set tabstop=4           		" Width of TAB
+" set shiftwidth=4        		" Number of space for indenting
+" set tabstop=4           		" Width of TAB
 set expandtab           		" Insert space for TAB
-set softtabstop=4
+" set softtabstop=4
 set smarttab
 "set backupcopy=yes          	" Set the backup style as overwrite
 
@@ -63,10 +70,6 @@ set statusline+=%{&ff}\                          "FileFormat (dos/unix..)
 set statusline+=\ row:%l/%L\ \                   "Rownumber/total (%)
 set statusline+=col:%03c\                        "Colnr
 set statusline+=\ %m%r%w\ %P\ \                  "Modified? Readonly? Top/bot.
-
-" [Indent configuration]
-set autoindent
-set cindent
 
 "---------------------------------------------------------"
 "               General Maping Keys                       "
@@ -197,6 +200,11 @@ Plugin 'fatih/vim-go'
 
 Plugin 'scrooloose/nerdtree'
 
+" nodejs
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'moll/vim-node'
+Plugin 'digitaltoad/vim-jade'
+
 call vundle#end()
 
 filetype plugin indent on     " required!
@@ -211,7 +219,6 @@ filetype plugin indent on     " required!
 " NOTE: comments after Plugin commands are not allowed.
 
 "---------------end of plugin-----------------------------'
-
 "---------------Plugin Setting----------------------------'
 
 "Ultisnips
@@ -224,6 +231,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+au BufRead,BufNewFile,BufReadPost *.jade set filetype=jade
 "---------------end of plugin setting---------------------'
 
 " Vim color file
