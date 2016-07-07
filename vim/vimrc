@@ -100,8 +100,8 @@ cnoremap    <s-l>   <right>
 inoremap    <m-k>   <c-k>
 inoremap    <c-k>   <up>
 inoremap    <c-j>   <down>
-inoremap    <s-h>   <esc>I
-inoremap    <s-l>   <esc>A
+inoremap    <c-h>   <esc>I
+inoremap    <c-l>   <esc>A
 inoremap    <c-o>   <esc>o
 
 " [Easy indent in visual mode]
