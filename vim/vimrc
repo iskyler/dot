@@ -177,33 +177,20 @@ imap kk <esc>
 " required! 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/vundle'
 
-" My bundles here:
-"
-" original repos on GitHub
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+Plugin 'gmarik/vundle'
 
 Plugin 'mattn/emmet-vim'
 
-" Track the engine.
 Plugin 'SirVer/ultisnips'
 
-" Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 
 Plugin 'majutsushi/tagbar'
 
-Plugin 'fatih/vim-go'
-
 Plugin 'scrooloose/nerdtree'
 
-" nodejs
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'moll/vim-node'
-Plugin 'digitaltoad/vim-jade'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
