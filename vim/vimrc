@@ -190,7 +190,7 @@ Plugin 'majutsushi/tagbar'
 
 Plugin 'scrooloose/nerdtree'
 
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
@@ -271,3 +271,29 @@ if exists("syntax_on")
    hi FoldColumn   gui=NONE guifg=#40c0ff guibg=#404040
 
    " Other
+
+function! EditCppFile(...)
+    let file_prefix = expand('%:r')
+    if filereadable(file_prefix . '.cpp')
+        execute 'e ' . file_prefix . '.cpp'
+    elseif filereadable(file_prefix . '.cc')
+        execute 'e ' . file_prefix . '.cc'
+    elseif filereadable(file_prefix . '.c')
+        execute 'e ' . file_prefix . '.c'
+    endif
+endfunction
+
+function! EditHeaderFile(...)
+    let file_prefix = expand('%:r')
+    if filereadable(file_prefix . '.h')
+        execute 'e ' . file_prefix . '.h'
+    elseif filereadable(file_prefix . '.hpp')
+        execute 'e ' . file_prefix . '.hpp'
+    endif
+endfunction
+
+command! Ecpp Call EditCppFile()
+command! Ehead Call EditHeaderFile()
+
+set cursorline
+autocmd! BufWritePost *.cpp,*.cc,*.c,*.h,*.hpp execute '!clang-format -style=google -i %'
