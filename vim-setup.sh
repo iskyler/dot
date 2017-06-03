@@ -41,7 +41,7 @@ config_vundle() {
     echo "Vundle install ok"
     hash vim 2>/dev/null || { \
         echo "vim command not found"; exit -1; }
-    vim --not-a-term +BundleInstall +qall
+    vim --not-a-term +PluginInstall +qall
 }
 
 link
