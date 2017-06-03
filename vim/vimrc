@@ -13,7 +13,7 @@ set novisualbell                " No sound on errors
 set mouse=a                 	" Enable mouse
 set backspace=eol,start,indent 	" Set backspace config
 set history=70              	" The lines of history VIM has to remember
-language message en_US.UTF-8
+"language message en_US.UTF-8
 
 " [Search configuration]
 set ignorecase          		" Ignore case when searching
@@ -190,7 +190,7 @@ Plugin 'majutsushi/tagbar'
 
 Plugin 'scrooloose/nerdtree'
 
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
