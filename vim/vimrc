@@ -190,7 +190,7 @@ Plugin 'majutsushi/tagbar'
 
 Plugin 'scrooloose/nerdtree'
 
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
