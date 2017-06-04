@@ -42,6 +42,7 @@ config_vundle() {
     hash vim 2>/dev/null || { \
         echo "vim command not found"; exit -1; }
     vim --not-a-term +PluginInstall +qall
+    cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && ./install.py --clang-completer --gocode-completer
 }
 
 link
