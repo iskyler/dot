@@ -43,6 +43,7 @@ config_vundle() {
         echo "vim command not found"; exit -1; }
     vim --not-a-term +PluginInstall +qall
     cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && ./install.py --clang-completer --gocode-completer
+    cp ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py ~/.ycm_extra_conf.py
 }
 
 link
