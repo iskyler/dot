@@ -90,12 +90,6 @@ nnoremap    <c-p>   :cp<cr>
 vnoremap    <silent> *  y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 vnoremap    <silent> #  y?<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 
-" [CTRL-hjkl to browse command history and move the cursor]
-cnoremap    <s-k>   <up>
-cnoremap    <s-j>   <down>
-cnoremap    <s-h>   <left>
-cnoremap    <s-l>   <right>
-
 " [CTRL-hjkl to move the cursor in insert mode]
 inoremap    <m-k>   <c-k>
 inoremap    <c-k>   <up>
