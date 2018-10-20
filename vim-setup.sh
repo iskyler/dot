@@ -30,7 +30,7 @@ config_vundle() {
     if [ ! -d ~/.vim/bundle ]
     then
         mkdir -p ~/.vim/bundle
-        git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+        git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
         if [ ! $? -eq 0 ]
         then
             echo "Error: Install vundle failed"
@@ -42,8 +42,7 @@ config_vundle() {
     hash vim 2>/dev/null || { \
         echo "vim command not found"; exit -1; }
     vim --not-a-term +PluginInstall +qall
-    cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && ./install.py --clang-completer --gocode-completer
-    cp ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py ~/.ycm_extra_conf.py
+    cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && ./install.py --clang-completer --go-completer
 }
 
 link
