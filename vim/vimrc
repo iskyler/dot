@@ -178,9 +178,7 @@ imap kk <esc>
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/vundle'
-
-Plugin 'mattn/emmet-vim'
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'SirVer/ultisnips'
 
@@ -189,6 +187,8 @@ Plugin 'honza/vim-snippets'
 Plugin 'majutsushi/tagbar'
 
 Plugin 'scrooloose/nerdtree'
+
+Plugin 'fatih/vim-go'
 
 Plugin 'Valloric/YouCompleteMe'
 
