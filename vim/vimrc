@@ -31,10 +31,10 @@ let g:html_indent_inctags = "html,body,head,tbody"
 
 " [Tab configuration]
 set noswapfile
-" set shiftwidth=4        		" Number of space for indenting
-" set tabstop=4           		" Width of TAB
+set shiftwidth=4        		" Number of space for indenting
+set tabstop=4           		" Width of TAB
 set expandtab           		" Insert space for TAB
-" set softtabstop=4
+set softtabstop=4
 set smarttab
 "set backupcopy=yes          	" Set the backup style as overwrite
 
@@ -184,9 +184,19 @@ Plugin 'scrooloose/nerdtree'
 
 Plugin 'fatih/vim-go'
 
+Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
+
 Plugin 'Valloric/YouCompleteMe'
 
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plugin 'google/vim-glaive'
+
 call vundle#end()
+" the glaive#Install() should go after the "call vundle#end()"
+call glaive#Install()
 
 filetype plugin indent on     " required!
 "
@@ -203,6 +213,17 @@ filetype plugin indent on     " required!
 "---------------Plugin Setting----------------------------'
 
 let g:ycm_global_ycm_extra_conf="~/.ycm_extra_conf.py"
+
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'objc' : ['->', '.'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
 
 "Ultisnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -293,3 +314,23 @@ command! Ehead Call EditHeaderFile()
 
 set cursorline
 autocmd! BufWritePost *.cpp,*.cc,*.c,*.h,*.hpp execute '!clang-format -style=google -i %'
+
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  " autocmd FileType dart AutoFormatBuffer dartfmt
+  " autocmd FileType go AutoFormatBuffer gofmt
+  " autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  " autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+augroup END
+
+augroup auto_go
+    autocmd!
+    autocmd BufWritePost *.go :GoImports
+    autocmd BufWritePost *.go :GoFmt
+augroup end
+
+autocmd! BufWritePost *.proto :FormatCode
