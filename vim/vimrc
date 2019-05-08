@@ -186,8 +186,8 @@ Plugin 'fatih/vim-go'
 
 Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
 
-Plugin 'Valloric/YouCompleteMe'
-
+" Plugin 'Valloric/YouCompleteMe'
+" 
 Plugin 'google/vim-maktaba'
 Plugin 'google/vim-codefmt'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
