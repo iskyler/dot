@@ -106,6 +106,7 @@ command! Ehead call EditHeaderFile()
 
 " exit to normal mode
 imap kk <esc>
+nmap <leader> :buffers<CR>:buffer<Space>
 
 set tabstop=4 " Width of TAB
 set expandtab  " Insert space for TAB
