@@ -30,9 +30,6 @@ let g:fzf_buffers_jump = 1
 " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
-hi IncSearch term=standout ctermfg=0 ctermbg=3
-hi CursorColumn term=standout ctermfg=0 ctermbg=3
-hi StatusLine term=standout ctermfg=0 ctermbg=3
 set number
 set nocompatible
 set backspace=indent,eol,start
@@ -40,7 +37,6 @@ set hidden
 set cmdheight=2
 set updatetime=300
 
-set laststatus=2
 autocmd FileType json syntax match Comment +\/\/.\+$+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -81,16 +77,19 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-function! CppFormat() 
-    let file_path = expand('%:p') 
-    execute "!clang-format -style=file -i " . file_path
-endfunction
-" Use clang-format to format c++/c source files
-augroup CppFormatGroup 
-    autocmd FileType c,cc,cpp,h,hpp 
-        \ autocmd! BufWritePost<buffer> call CppFormat() 
-augroup END
+let g:coc_global_extensions = [
+      \'coc-markdownlint',
+      \'coc-highlight',
+      \'coc-vetur',
+      \'coc-go',
+      \'coc-python',
+      \'coc-explorer',
+      \'coc-flutter',
+      \'coc-json',
+      \'coc-git',
+      \'coc-prettier',
+      \'coc-clangd'
+      \]
 
 " ---------------- custom ------------------
 
