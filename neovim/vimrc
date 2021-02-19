@@ -1,0 +1,114 @@
+set path+=~/QQMail
+set path+=**
+call plug#begin('~/.vim/plugged')
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+Plug 'joshdick/onedark.vim', { 'as': 'onedark' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
+syntax on
+colorscheme onedark
+
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+let g:UltiSnipsExpandTrigger="<nop>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:airline#extensions#tabline#enabled = 1
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+hi IncSearch term=standout ctermfg=0 ctermbg=3
+hi CursorColumn term=standout ctermfg=0 ctermbg=3
+hi StatusLine term=standout ctermfg=0 ctermbg=3
+set number
+set nocompatible
+set backspace=indent,eol,start
+set hidden
+set cmdheight=2
+set updatetime=300
+
+set laststatus=2
+autocmd FileType json syntax match Comment +\/\/.\+$+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+nmap <silent>fm <Plug>(coc-format) 
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json,cc,c++ setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+function! CppFormat() 
+    let file_path = expand('%:p') 
+    execute "!clang-format -style=file -i " . file_path
+endfunction
+" Use clang-format to format c++/c source files
+augroup CppFormatGroup 
+    autocmd FileType c,cc,cpp,h,hpp 
+        \ autocmd! BufWritePost<buffer> call CppFormat() 
+augroup END
+
+" ---------------- custom ------------------
+
+function! EditHeaderFile(...)
+    let file_prefix = expand('%:r')
+    execute "e " . file_prefix . ".h"
+endfunction
+function! EditCppFile(...)
+    let file_prefix = expand('%:r')
+    execute "e " . file_prefix . ".cpp"
+endfunction
+command! Ecpp call EditCppFile()
+command! Ehead call EditHeaderFile()
+
+" exit to normal mode
+imap kk <esc>
+
+set tabstop=4 " Width of TAB
+set expandtab  " Insert space for TAB
+set softtabstop=4
+set shiftwidth=4 " Number of space for indenting
