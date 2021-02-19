@@ -1,0 +1,45 @@
+{
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "args": ["--log-file=/tmp/ccls.log"],
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": ".ccls-cache"
+        },
+        "clang": {
+          "resourceDir": "$YOUR_CLANG_PATH"
+        },
+        "index": {
+          "trackDependency": 1,
+          "initialBlacklist": ["."]
+        }
+      }
+    }
+  },
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.noselect": false,
+  "suggest.enablePreview": true,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "c",
+    "cc",
+    "cpp",
+    "c++",
+    "h",
+    "hpp",
+    "json",
+    "css",
+    "markdown",
+    "javascript"
+  ]
+}
