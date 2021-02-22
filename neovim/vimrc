@@ -30,6 +30,8 @@ let g:fzf_buffers_jump = 1
 " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 set number
 set nocompatible
 set backspace=indent,eol,start
@@ -38,10 +40,24 @@ set cmdheight=2
 set updatetime=300
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Remap keys for gotos
@@ -88,6 +104,7 @@ let g:coc_global_extensions = [
       \'coc-json',
       \'coc-git',
       \'coc-prettier',
+      \'coc-snippets',
       \'coc-clangd'
       \]
 
@@ -106,6 +123,8 @@ command! Ehead call EditHeaderFile()
 
 " exit to normal mode
 imap kk <esc>
+inoremap ( ()<left>
+inoremap {<cr> {<cr>}<c-[>ko
 nmap <leader> :buffers<CR>:buffer<Space>
 
 set tabstop=4 " Width of TAB
