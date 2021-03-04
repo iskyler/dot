@@ -1,17 +1,25 @@
 set path+=~/QQMail
 set path+=**
+filetype plugin on
+filetype plugin indent on
+filetype off
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 Plug 'joshdick/onedark.vim', { 'as': 'onedark' }
+Plug 'cocopon/iceberg.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+Plug 'tpope/vim-dispatch'
 
 " json with comment
 Plug 'kevinoid/vim-jsonc'
@@ -20,7 +28,8 @@ Plug 'preservim/tagbar'
 call plug#end()
 
 syntax on
-colorscheme onedark
+" colorscheme onedark
+colorscheme iceberg
 
 let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
@@ -35,13 +44,6 @@ let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-set number
-set nocompatible
-set backspace=indent,eol,start
-set hidden
-set cmdheight=2
-set updatetime=300
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
 inoremap <silent><expr> <TAB>
@@ -76,10 +78,10 @@ nmap <leader>rn <Plug>(coc-rename)
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-nmap <silent>fm <Plug>(coc-format) 
+" nmap <silent>fm <Plug>(coc-format) 
 augroup mygroup
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json,cc,c++ setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json,cc,c++,cpp setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
@@ -105,15 +107,20 @@ let g:coc_global_extensions = [
       \'coc-explorer',
       \'coc-flutter',
       \'coc-json',
-      \'coc-git',
+      \'coc-git', 
       \'coc-prettier',
       \'coc-snippets',
-      \'coc-clangd',
       \'coc-tsserver',
       \'coc-eslint',
       \]
 
 " ---------------- custom ------------------
+set number
+set nocompatible
+set backspace=indent,eol,start
+set hidden
+set cmdheight=2
+set updatetime=300
 
 function! EditHeaderFile(...)
     let file_prefix = expand('%:r')
@@ -132,7 +139,10 @@ inoremap ( ()<left>
 inoremap {<cr> {<cr>}<c-[>ko
 inoremap <c-a> <esc>A
 inoremap <c-l> <esc><right>a
-nmap <leader> :buffers<CR>:buffer<Space>
+cnoremap <c-h> <S-left>
+cnoremap <c-k> <up>
+cnoremap <c-l> <S-right>
+nn <leader>= :buffers<CR>:buffer<Space>
 
 set tabstop=4 " Width of TAB
 set expandtab  " Insert space for TAB
@@ -145,3 +155,7 @@ function Wat2Wasm()
     execute "!wat2wasm ".file_path
 endfunction
 autocmd! BufWritePost *.wat call Wat2Wasm()
+
+autocmd! BufWinEnter quickfix :AnsiEsc
+autocmd! QuickFixCmdPost :AnsiEsc
+autocmd! BufWinEnter terminal setlocal nu!
